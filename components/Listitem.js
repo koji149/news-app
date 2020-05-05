@@ -1,14 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
 
-const Listitem = ({imageUrl, title, author}) => {
+const Listitem = ({imageUrl, title, author, onPress}) => {
   return(
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={}>
         <View style={styles.leftContainer}>
-          <Image
+          {!!imageUrl && (<Image
           style={{width: 100, height: 100}}
           source={{url: imageUrl}}
-          />
+          />)}
         </View>
         <View style={styles.rightContainer}>
           <Text numberOfLines={3} style={styles.text}>
@@ -18,7 +18,7 @@ const Listitem = ({imageUrl, title, author}) => {
             {author}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
   )
 }
 
