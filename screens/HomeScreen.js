@@ -19,12 +19,14 @@ export default HomeScreen = props => {
   }, []);
 
   const fetchArtcles = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(URL);
       setArticles(response.data.articles)
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -40,7 +42,7 @@ export default HomeScreen = props => {
       )}
       keyExtractor={(item, index) => index.toString()}  
       />
-      <Loading />
+      {loadding && <Loading />}
     </SafeAreaView>
   );
 }
