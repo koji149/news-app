@@ -3,13 +3,17 @@ import { StyleSheet,  View,  FlatList, SafeAreaView} from 'react-native';
 import Listitem from '../components/Listitem';
 import Constants from 'expo-constants';
 import axios from 'axios';
+import Loading from '../components/Loading';
 
 const URL = `http://newsapi.org/v2/top-headlines?country=jp&category=business&apiKey=${Constants.manifest.extra.newsApiKey}`
 
 
-export default HomeScreen = (props) => {
-  const {navigation} = props;
+export default HomeScreen = props => {
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+
+
   useEffect(() => {
     fetchArtcles();
   }, []);
@@ -26,14 +30,17 @@ export default HomeScreen = (props) => {
     <SafeAreaView style={styles.container}>
       <FlatList
       data={articles}
-      renderItem={({item}) => <Listitem 
+      renderItem={({item}) => 
+      (<Listitem 
       imageUrl={item.urlToImage}
       title={item.title}
       author={item.author}
-      onPress={() => navigation.navigate("Article", {article: item})}/>}
+      onPress={() => props.navigation.navigate("Article", {article: item})}
+      />
+      )}
       keyExtractor={(item, index) => index.toString()}  
       />
-      
+      <Loading />
     </SafeAreaView>
   );
 }
